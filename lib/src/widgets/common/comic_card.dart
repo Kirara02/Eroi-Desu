@@ -1,22 +1,31 @@
 import 'package:eroi_desu/src/config/constant.dart';
+import 'package:eroi_desu/src/data/models/comic_model.dart';
+import 'package:eroi_desu/src/features/comic_detail/view/comic_detail_page.dart';
+import 'package:eroi_desu/src/widgets/images/cached_network.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
 class ComicCard extends StatelessWidget {
-  final String title;
-  final List<String> genre;
-  final String imgUrl;
+  final ComicModel comic;
 
   const ComicCard({
     super.key,
-    required this.title,
-    required this.genre,
-    required this.imgUrl,
+    required this.comic,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        pushDynamicScreen(context,
+            screen: PageTransition(
+                child: ComicDetailPage(
+                  comic: comic,
+                ),
+                type: PageTransitionType.rightToLeft),
+            withNavBar: false);
+      },
       child: Container(
         width: 150,
         margin: const EdgeInsets.all(8),
@@ -36,10 +45,10 @@ class ComicCard extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
-              child: Image.asset(
-                imgUrl,
-                height: 100,
+              child: UICacheNetworkImage(
+                imageUrl: comic.cover!,
                 fit: BoxFit.cover,
+                size: const Size.fromHeight(100),
               ),
             ),
             Padding(
@@ -51,7 +60,7 @@ class ComicCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    title,
+                    comic.title!,
                     maxLines: 1,
                     style: const TextStyle(
                       fontWeight: FontWeight.w600,
@@ -61,7 +70,7 @@ class ComicCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    genre.join(', '),
+                    comic.genre!,
                     maxLines: 1,
                     style: const TextStyle(
                       fontSize: AppConstants.kFontSizeXS,

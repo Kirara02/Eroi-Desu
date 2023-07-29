@@ -3,9 +3,9 @@
 import 'dart:ui';
 
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:eroi_desu/src/config/constant.dart';
 import 'package:eroi_desu/src/config/screen.dart';
 import 'package:eroi_desu/src/config/theme/colors.dart';
+import 'package:eroi_desu/src/features/home/widget/carousel_item.dart';
 import 'package:eroi_desu/src/widgets/common/home_title.dart';
 import 'package:flutter/material.dart';
 
@@ -43,68 +43,6 @@ class _NewReleaseHomeState extends State<NewReleaseHome> {
       'img_url': 'assets/images/aot.jpg',
     },
   ];
-
-  Widget buildCarouselItem(Map<String, dynamic> anime) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  anime['judul'].toString().toUpperCase(),
-                  style: const TextStyle(
-                    fontSize: AppConstants.kFontSizeXL,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                const SizedBox(height: 2.0),
-                Text(
-                  anime['genre'].join(', '),
-                  style: TextStyle(
-                    fontSize: AppConstants.kFontSizeS,
-                    fontWeight: FontWeight.w300,
-                  ),
-                ),
-                const SizedBox(height: 10.0),
-                const Text(
-                  'Synopsis',
-                  style: TextStyle(
-                    fontSize: AppConstants.kFontSizeS,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                const SizedBox(height: 4.0),
-                Text(
-                  anime['sinopsis'],
-                  maxLines: 3,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(width: 5.0),
-          Container(
-            decoration: BoxDecoration(
-              border: Border.all(color: UIColors.white, width: 2),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            width: 100,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Image.asset(
-                anime['img_url'].toString(),
-                height: 130,
-                fit: BoxFit.cover,
-              ),
-            ),
-          )
-        ],
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -160,7 +98,9 @@ class _NewReleaseHomeState extends State<NewReleaseHome> {
                     },
                   ),
                   items: data.map((anime) {
-                    return buildCarouselItem(anime);
+                    return CarouselItem(
+                      anime: anime,
+                    );
                   }).toList(),
                 ),
                 Positioned(

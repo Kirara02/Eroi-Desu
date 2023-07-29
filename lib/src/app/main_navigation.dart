@@ -24,16 +24,36 @@ class _MainNavigationState extends State<MainNavigation> {
     return (await showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: const Text('Apakah anda yakin?'),
-            content: const Text('Anda ingin keluar dari aplikasi'),
+            title: const Text(
+              'Apakah anda yakin?',
+              style: TextStyle(
+                color: UIColors.text,
+              ),
+            ),
+            content: const Text(
+              'Anda ingin keluar dari aplikasi',
+              style: TextStyle(
+                color: UIColors.text,
+              ),
+            ),
             actions: <Widget>[
               TextButton(
                 onPressed: () => Navigator.of(context).pop(false),
-                child: const Text('Tidak'),
+                child: const Text(
+                  'Tidak',
+                  style: TextStyle(
+                    color: UIColors.text,
+                  ),
+                ),
               ),
               TextButton(
                 onPressed: () => Navigator.of(context).pop(true),
-                child: const Text('Ya'),
+                child: const Text(
+                  'Ya',
+                  style: TextStyle(
+                    color: UIColors.text,
+                  ),
+                ),
               ),
             ],
           ),
